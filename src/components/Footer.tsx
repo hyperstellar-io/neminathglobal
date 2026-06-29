@@ -1,0 +1,112 @@
+import { Link } from "@tanstack/react-router";
+import { Mail, Phone, MapPin, ArrowUpRight, Facebook, Instagram, Linkedin } from "lucide-react";
+import { motion } from "framer-motion";
+import { Reveal } from "./Reveal";
+
+export function Footer() {
+  return (
+    <footer className="relative bg-background pt-32 pb-12 px-8 md:px-16 border-t border-border overflow-hidden">
+      <div className="absolute inset-0 grid-pattern opacity-30 pointer-events-none [mask-image:radial-gradient(circle_at_center,black,transparent_70%)]" />
+
+      <div className="relative max-w-[1400px] mx-auto">
+        <Reveal>
+          <div id="lets-build" className="mb-24 max-w-4xl">
+            <div className="text-[10px] uppercase tracking-[0.3em] text-cyan-glow mb-6">— Let&apos;s build</div>
+            <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.9]">
+              Trade, refined for
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-glow dark:via-white to-zinc-500">
+                a borderless world.
+              </span>
+            </h3>
+            <motion.div
+              className="mt-12 inline-block"
+              animate={{ scale: [1, 1.06, 1, 1.06, 1, 1, 1, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-4 px-7 py-4 bg-foreground text-background rounded-full font-bold text-sm uppercase tracking-widest hover:bg-cyan-glow transition-all group"
+              >
+                Start a conversation
+                <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+            </motion.div>
+          </div>
+        </Reveal>
+
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-15 mb-20">
+          <div className="col-span-2 md:col-span-5">
+            <div className="text-3xl md:text-4xl font-extrabold tracking-tighter mb-6">NEMINATH</div>
+            <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
+              A global trading house exporting premium spices, grains, agricultural and industrial goods from India, alongside
+              sustainable solar energy solutions worldwide.
+            </p>
+            <div className="mt-10 flex flex-col gap-3 text-sm text-muted-foreground">
+              <a href="mailto:info@neminathglobal.com" className="flex items-center gap-3 hover:text-cyan-glow">
+                <Mail size={14} className="text-cyan-glow" /> info@neminathglobal.com
+              </a>
+              <a href="tel:+919075240933" className="flex items-center gap-3 hover:text-cyan-glow">
+                <Phone size={14} className="text-cyan-glow" /> +49 15208268849  ·  +91 9075240933
+              </a>
+              <div className="flex items-center gap-3">
+                <MapPin size={14} className="text-cyan-glow" /> Rajasthan, India
+              </div>
+            </div>
+          </div>
+
+          <FooterCol title="Explore" links={[
+            { label: "Home", to: "/" },
+            { label: "About", to: "/about" },
+            { label: "Exports", to: "/exports" },
+            { label: "Solar Services", to: "/solar-services" },
+          ]} />
+          <FooterCol title="Network" links={[
+            { label: "Global Presence", to: "/global-presence" },
+            { label: "Contact", to: "/contact" },
+          ]} />
+          <div className="col-span-1 md:col-span-2 lg:col-span-2 flex flex-col gap-4">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Follow Us</span>
+            <div className="flex items-center gap-4 mt-1">
+              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-cyan-glow transition-colors">
+                <Facebook size={18} />
+              </a>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-cyan-glow transition-colors">
+                <Instagram size={18} />
+              </a>
+              <a href="https://www.indiamart.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-cyan-glow transition-colors text-xs font-bold uppercase tracking-wide">
+                IM
+              </a>
+              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-cyan-glow transition-colors">
+                <Linkedin size={18} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-10 border-t border-border gap-4">
+          <div className="pl-40 md:pl-10 text-[10px] uppercase tracking-widest text-muted-foreground">
+            © {new Date().getFullYear()} Neminath Global · A brand of Nemminath Enterprisee
+          </div>
+          <div className="flex gap-10 pr-0 md:pr-10 text-[10px] uppercase tracking-widest text-muted-foreground">
+            <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
+            <Link to="/terms" className="hover:text-foreground transition-colors">Terms</Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function FooterCol({ title, links }: { title: string; links: { label: string; to: string }[] }) {
+  return (
+    <div className="col-span-1 md:col-span-2 lg:col-span-2 flex flex-col gap-4">
+      <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{title}</span>
+      {links.map((l) => (
+        <Link key={l.label} to={l.to} className="text-sm text-muted-foreground hover:text-cyan-glow transition-colors w-fit">
+          {l.label}
+        </Link>
+      ))}
+    </div>
+  );
+}

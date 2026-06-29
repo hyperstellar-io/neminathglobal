@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /403
+Disallow: /405
+
+Sitemap: https://neminathglobal.com/sitemap.xml
