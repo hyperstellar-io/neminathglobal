@@ -3,7 +3,7 @@ import { useState } from "react";
 import { motion as m } from "framer-motion";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Plus } from "lucide-react";
 import {
   SITE_URL,
   buildContactPageSchema,
@@ -64,13 +64,13 @@ export const Route = createFileRoute("/contact")({
             q: "Do you offer solar services outside India?",
             a: "Solar installations are primarily delivered in India. International advisory and supply partnerships are available case-by-case.",
           },
-        ])
+        ]),
       ),
       schemaScript(
         buildBreadcrumbSchema([
           { name: "Home", url: "/" },
           { name: "Contact", url: "/contact" },
-        ])
+        ]),
       ),
     ],
   }),
@@ -78,10 +78,22 @@ export const Route = createFileRoute("/contact")({
 });
 
 const FAQ = [
-  { q: "What products do you export?", a: "We export Indian spices, grains, fresh produce (mangoes, pomegranates), personal hygiene goods, industrial commodities and packaging materials." },
-  { q: "What is your minimum order quantity?", a: "MOQ depends on the product category and destination. Most categories ship by full container; we work with you to optimize the load." },
-  { q: "Do you handle export documentation?", a: "Yes. We handle all export documentation, certifications and customs paperwork to make clearance hassle-free at destination." },
-  { q: "Do you offer solar services outside India?", a: "Solar installations are primarily delivered in India. International advisory and supply partnerships are available case-by-case." },
+  {
+    q: "What products do you export?",
+    a: "We export Indian spices, grains, fresh produce (mangoes, pomegranates), personal hygiene goods, industrial commodities and packaging materials.",
+  },
+  {
+    q: "What is your minimum order quantity?",
+    a: "MOQ depends on the product category and destination. Most categories ship by full container; we work with you to optimize the load.",
+  },
+  {
+    q: "Do you handle export documentation?",
+    a: "Yes. We handle all export documentation, certifications and customs paperwork to make clearance hassle-free at destination.",
+  },
+  {
+    q: "Do you offer solar services outside India?",
+    a: "Solar installations are primarily delivered in India. International advisory and supply partnerships are available case-by-case.",
+  },
 ];
 
 function Contact() {
@@ -89,19 +101,50 @@ function Contact() {
     <>
       <PageHero
         eyebrow="Get in touch"
-        title={<>Let&apos;s build a<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-glow dark:via-white to-zinc-500">trade corridor.</span></>}
+        title={
+          <>
+            Let&apos;s build a<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-700 via-cyan-900 to-zinc-700 dark:from-cyan-glow dark:via-white dark:to-zinc-500">
+              trade corridor.
+            </span>
+          </>
+        }
         subtitle="Send us a message about exports, solar services or partnership opportunities. Our trade desk responds within one business day."
       />
 
       <section className="px-6 md:px-30 pb-24 md:pb-32">
         <div className="max-w-[1400px] mx-auto grid md:grid-cols-12 gap-10 md:gap-x-20 md:gap-y-16">
           <div className="md:col-span-5 flex flex-col gap-6">
-            <Reveal><InfoCard icon={Mail} title="Email" lines={["info@neminathglobal.com"]} href="mailto:info@neminathglobal.com" /></Reveal>
-            <Reveal delay={0.1}><InfoCard icon={Phone} title="Phone" lines={["+49 152 0826 8849", "+91 90752 40933"]} href="tel:+919075240933" /></Reveal>
-            <Reveal delay={0.2}><InfoCard icon={MapPin} title="Headquarters" lines={["Rajasthan, India"]} /></Reveal>
+            <Reveal>
+              <InfoCard
+                icon={Mail}
+                title="Email"
+                lines={["info@neminathglobal.com"]}
+                href="mailto:info@neminathglobal.com"
+              />
+            </Reveal>
+            <Reveal delay={0.1}>
+              <InfoCard
+                icon={Phone}
+                title="Phone"
+                lines={["🇩🇪 +49 152 0826 8849", "🇮🇳 +91 90752 40933"]}
+                href="tel:+919075240933"
+              />
+            </Reveal>
+            <Reveal delay={0.2}>
+              <InfoCard
+                icon={MapPin}
+                title="Headquarters"
+                lines={[
+                  "FLAT NO. B-3, SHREENATH REGENCY, M.B.S NAGAR, KOTA JUNCTION, Kota, Rajasthan, 324002",
+                ]}
+              />
+            </Reveal>
             <Reveal delay={0.3}>
               <p className="text-sm text-muted-foreground pt-6 border-t border-border mx-4">
-                Neminath Global is a brand of <span className="text-foreground dark:text-white">Nemminath Enterprisee</span> (registered company name).
+                Neminath Global is a brand of{" "}
+                <span className="text-foreground dark:text-white">Nemminath Enterprisee</span>{" "}
+                (registered company name).
               </p>
             </Reveal>
           </div>
@@ -115,13 +158,19 @@ function Contact() {
       <section className="px-6 md:px-12 py-24 md:py-32 border-t border-border">
         <div className="max-w-[1400px] mx-auto grid md:grid-cols-12 gap-10">
           <Reveal className="md:col-span-4">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-cyan-glow">— FAQ</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-glow">
+              FAQ
+            </span>
             <h2 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tighter leading-[0.95]">
-              Quick<br />answers.
+              Quick
+              <br />
+              answers.
             </h2>
           </Reveal>
           <div className="md:col-span-8 divide-y divide-border border-y border-border">
-            {FAQ.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
+            {FAQ.map((item, i) => (
+              <FaqItem key={i} q={item.q} a={item.a} />
+            ))}
           </div>
         </div>
       </section>
@@ -129,7 +178,17 @@ function Contact() {
   );
 }
 
-function InfoCard({ icon: Icon, title, lines, href }: { icon: typeof Mail; title: string; lines: string[]; href?: string }) {
+function InfoCard({
+  icon: Icon,
+  title,
+  lines,
+  href,
+}: {
+  icon: typeof Mail;
+  title: string;
+  lines: string[];
+  href?: string;
+}) {
   const inner = (
     <div className="group mx-4 rounded-2xl border border-border bg-card/80 dark:bg-zinc-900/40 p-5 hover:border-cyan-glow/30 transition-colors">
       <div className="flex items-start gap-3">
@@ -139,7 +198,14 @@ function InfoCard({ icon: Icon, title, lines, href }: { icon: typeof Mail; title
         <div>
           <div className="text-[9px] uppercase tracking-widest text-muted-foreground">{title}</div>
           <div className="mt-1 flex flex-wrap gap-x-5 gap-y-0.5">
-            {lines.map((l) => <span key={l} className="text-sm font-semibold group-hover:text-cyan-glow transition-colors">{l}</span>)}
+            {lines.map((l) => (
+              <span
+                key={l}
+                className="text-sm font-semibold group-hover:text-cyan-glow transition-colors"
+              >
+                {l}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -152,47 +218,81 @@ function ContactForm() {
   const [sent, setSent] = useState(false);
   return (
     <form
-      onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        setSent(true);
+      }}
       className="rounded-3xl border border-border bg-card/80 dark:bg-zinc-900/40 p-8 md:p-10 space-y-6"
     >
       <div className="grid md:grid-cols-2 gap-6">
-        <Field label="Name" name="name" required />
-        <Field label="Company" name="company" required />
+        <Field label="Name" name="name" required placeholder="Jane Doe" />
+        <Field label="Company" name="company" required placeholder="Acme Traders Ltd" />
       </div>
       <div className="grid md:grid-cols-2 gap-6">
-        <Field label="Email" name="email" type="email" required />
-        <Field label="Country" name="country" />
+        <Field label="Email" name="email" type="email" required placeholder="jane@company.com" />
+        <Field label="Country" name="country" placeholder="Germany" />
       </div>
-      <Field label="Phone number" name="phone" />
-      <Field label="Message" name="message" textarea required />
+      <Field label="Phone number" name="phone" placeholder="+49 152 0000 0000" />
+      <Field
+        label="Message"
+        name="message"
+        textarea
+        required
+        placeholder="Tell us about the products or volumes you're looking for..."
+      />
 
       <button
         type="submit"
         className="inline-flex items-center gap-3 bg-foreground text-background px-7 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-cyan-glow transition-colors active:scale-95"
       >
-        {sent ? "Thank you — we&apos;ll be in touch" : <>Submit <Send size={14} /></>}
+        {sent ? (
+          "Thank you — we&apos;ll be in touch"
+        ) : (
+          <>
+            Submit <Send size={14} />
+          </>
+        )}
       </button>
     </form>
   );
 }
 
-function Field({ label, name, type = "text", required, textarea }: { label: string; name: string; type?: string; required?: boolean; textarea?: boolean }) {
+function Field({
+  label,
+  name,
+  type = "text",
+  required,
+  textarea,
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+  textarea?: boolean;
+  placeholder?: string;
+}) {
   return (
     <label className="block group">
-      <span className="text-[10px] uppercase tracking-widest text-muted-foreground group-focus-within:text-cyan-glow">{label}{required && " *"}</span>
+      <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground group-focus-within:text-cyan-glow">
+        {label}
+        {required && " *"}
+      </span>
       {textarea ? (
         <textarea
           name={name}
           required={required}
           rows={5}
-          className="mt-2 w-full bg-transparent border-b border-border focus:border-cyan-glow outline-none py-3 text-base resize-none transition-colors"
+          placeholder={placeholder}
+          className="mt-2 w-full bg-transparent border-b border-border focus:border-cyan-glow outline-none py-3 text-base resize-none transition-colors placeholder:text-muted-foreground/50"
         />
       ) : (
         <input
           type={type}
           name={name}
           required={required}
-          className="mt-2 w-full bg-transparent border-b border-border focus:border-cyan-glow outline-none py-3 text-base transition-colors"
+          placeholder={placeholder}
+          className="mt-2 w-full bg-transparent border-b border-border focus:border-cyan-glow outline-none py-3 text-base transition-colors placeholder:text-muted-foreground/50"
         />
       )}
     </label>
@@ -202,12 +302,24 @@ function Field({ label, name, type = "text", required, textarea }: { label: stri
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <button onClick={() => setOpen((v) => !v)} className="w-full text-left py-6 group">
-      <div className="flex items-center justify-between gap-6">
-        <h3 className="text-lg md:text-xl font-bold group-hover:text-cyan-glow transition-colors">{q}</h3>
-        <span className="size-8 rounded-full border border-border flex items-center justify-center text-cyan-glow">+</span>
+    <button
+      onClick={() => setOpen((v) => !v)}
+      aria-expanded={open}
+      className="w-full text-left py-6 group"
+    >
+      <div className="flex items-start justify-between gap-6">
+        <h3 className="text-lg md:text-xl font-bold group-hover:text-cyan-glow transition-colors">
+          {q}
+        </h3>
+        <span className="size-8 shrink-0 rounded-full border border-border dark:border-white/20 flex items-center justify-center text-cyan-glow transition-transform group-aria-expanded:rotate-45">
+          <Plus size={14} aria-hidden="true" />
+        </span>
       </div>
-      <m.div initial={false} animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }} className="overflow-hidden">
+      <m.div
+        initial={false}
+        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
+        className="overflow-hidden"
+      >
         <p className="mt-4 text-muted-foreground max-w-2xl">{a}</p>
       </m.div>
     </button>

@@ -76,7 +76,7 @@ html:not(.dark) {
   --color-obsidian: #f8f9fa;
   --color-obsidian-soft: #f1f3f5;
   --color-ink: #0f172a;
-  --color-muted-ink: #64748b;
+  --color-muted-ink: #475569;
   --color-cyan-glow: #0891b2;
   --color-cyan-deep: #0e7490;
   --color-zinc-line: rgba(0, 0, 0, 0.06);
@@ -92,7 +92,7 @@ html:not(.dark) {
   --secondary:              #f1f5f9;
   --secondary-foreground:   #0f172a;
   --muted:                  #f1f5f9;
-  --muted-foreground:       #64748b;
+  --muted-foreground:       #475569;
   --accent:                 #0891b2;
   --accent-foreground:      #ffffff;
   --destructive:            #ef4444;

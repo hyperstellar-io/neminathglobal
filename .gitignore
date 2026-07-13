@@ -20,15 +20,6 @@ dist-ssr
 .wrangler/
 .dev.vars
 
-# Claude Code local settings (machine-specific)
-.claude/settings.local.json
-
-# npm lock file (project uses Bun)
-package-lock.json
-
-# Vercel build output
-.vercel
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

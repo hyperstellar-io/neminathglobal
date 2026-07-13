@@ -18,7 +18,11 @@ export function PageHero({
       <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-cyan-glow/10 blur-[120px] animate-mesh pointer-events-none" />
 
       <div className="relative max-w-[1400px] mx-auto">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           <SectionLabel>{eyebrow}</SectionLabel>
         </motion.div>
         <motion.h1
@@ -34,7 +38,7 @@ export function PageHero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
+            className="mt-8 text-lg md:text-xl font-medium text-muted-foreground max-w-2xl leading-relaxed"
           >
             {subtitle}
           </motion.p>

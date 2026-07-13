@@ -9,8 +9,7 @@ export const Route = createFileRoute("/privacy")({
       { title: "Privacy Policy | Neminath Global" },
       {
         name: "description",
-        content:
-          "How Neminath Global collects, uses, and protects your personal information.",
+        content: "How Neminath Global collects, uses, and protects your personal information.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -62,7 +61,7 @@ function Privacy() {
         title={
           <>
             Privacy{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-glow dark:via-white to-zinc-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-700 via-cyan-900 to-zinc-700 dark:from-cyan-glow dark:via-white dark:to-zinc-500">
               Policy.
             </span>
           </>
@@ -72,9 +71,8 @@ function Privacy() {
 
       <section className="px-6 md:px-12 py-16 md:py-24 border-t border-border">
         <div className="max-w-[860px] mx-auto">
-
           <Reveal>
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-12">
+            <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-12">
               Effective date: 1 January 2025
             </p>
           </Reveal>
@@ -84,7 +82,7 @@ function Privacy() {
               <Reveal key={s.title} delay={i * 0.05}>
                 <div className="grid md:grid-cols-12 gap-6 md:gap-10 pb-14 border-b border-border last:border-0 last:pb-0">
                   <div className="md:col-span-4">
-                    <span className="text-[10px] uppercase tracking-widest text-cyan-glow font-bold">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-cyan-glow font-bold">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h2 className="mt-2 text-lg font-bold leading-snug">{s.title}</h2>
@@ -109,7 +107,6 @@ function Privacy() {
               </p>
             </div>
           </Reveal>
-
         </div>
       </section>
     </>

@@ -11,7 +11,7 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const urls = PATHS.map(
           (p) =>
-            `  <url><loc>${BASE_URL}${p}</loc><changefreq>weekly</changefreq><priority>${p === "/" ? "1.0" : "0.8"}</priority></url>`
+            `  <url><loc>${BASE_URL}${p}</loc><changefreq>weekly</changefreq><priority>${p === "/" ? "1.0" : "0.8"}</priority></url>`,
         );
         const xml = [
           `<?xml version="1.0" encoding="UTF-8"?>`,

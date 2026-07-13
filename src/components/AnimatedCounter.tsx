@@ -18,7 +18,7 @@ export function AnimatedCounter({
   const inView = useInView(ref, { once: true });
   const mv = useMotionValue(0);
   const rounded = useTransform(mv, (v) =>
-    to >= 100 ? Math.round(v).toLocaleString() : v.toFixed(1).replace(/\.0$/, "")
+    to >= 100 ? Math.round(v).toLocaleString() : v.toFixed(1).replace(/\.0$/, ""),
   );
 
   useEffect(() => {

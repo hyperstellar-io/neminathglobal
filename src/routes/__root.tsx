@@ -1,5 +1,6 @@
 import "@fontsource/plus-jakarta-sans/300.css";
 import "@fontsource/plus-jakarta-sans/400.css";
+import "@fontsource/plus-jakarta-sans/500.css";
 import "@fontsource/plus-jakarta-sans/600.css";
 import "@fontsource/plus-jakarta-sans/800.css";
 
@@ -16,18 +17,14 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Navbar } from "../components/Navbar";
+import { PageLoader } from "../components/PageLoader";
 import { Footer } from "../components/Footer";
 import { LenisProvider } from "../components/Lenis";
 import { ThemeProvider } from "../hooks/use-theme";
 import { BackToTop } from "../components/BackToTop";
 import { WhatsAppFAB } from "../components/WhatsAppFAB";
-import { LoadingScreen } from "../components/LoadingScreen";
 import { ErrorPage } from "../components/ErrorPage";
-import {
-  buildOrganizationSchema,
-  buildWebsiteSchema,
-  schemaScript,
-} from "../lib/seo";
+import { buildOrganizationSchema, buildWebsiteSchema, schemaScript } from "../lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -52,7 +49,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
       title="Shipment"
       subtitle="Failed."
       description="Something went wrong on our end. Our team has been notified. Try again or head back home."
-      onRetry={() => { router.invalidate(); reset(); }}
+      onRetry={() => {
+        router.invalidate();
+        reset();
+      }}
     />
   );
 }
@@ -92,11 +92,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Premium Indian spices, grains, frozen foods & hygiene goods exported worldwide. Trusted B2B export supplier from Rajasthan, India.",
       },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
-    scripts: [
-      schemaScript(buildOrganizationSchema()),
-      schemaScript(buildWebsiteSchema()),
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
     ],
+    scripts: [schemaScript(buildOrganizationSchema()), schemaScript(buildWebsiteSchema())],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -123,7 +125,7 @@ function RootComponent() {
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
-        <LoadingScreen />
+        <PageLoader />
         <LenisProvider />
         <Navbar />
         <main className="min-h-screen">
