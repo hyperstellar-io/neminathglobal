@@ -26,12 +26,12 @@ import {
   schemaScript,
 } from "../lib/seo";
 
-import heroShip from "../assets/hero-ship.jpg";
+import heroShip from "../assets/hero-ship.webp";
 import heroVideo from "../assets/hero-video.mp4";
-import spices from "../assets/spices.jpg";
-import solar from "../assets/solar.jpg";
-import grains from "../assets/grains.jpg";
-import warehouse from "../assets/warehouse.jpg";
+import spices from "../assets/spices.webp";
+import solar from "../assets/solar.webp";
+import grains from "../assets/grains.webp";
+import warehouse from "../assets/warehouse.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -192,26 +192,40 @@ function Hero() {
 }
 
 const STATS = [
-  { value: 50, suffix: "+", label: "Countries Served" },
-  { value: 12, suffix: "+", label: "Years Operating" },
-  { value: 200, suffix: "+", label: "Trusted Partners" },
-  { value: 99.4, suffix: "%", label: "On-time Delivery" },
-];
+  { type: "number", value: 5, suffix: "+", label: "Countries Served" },
+  { type: "number", value: 5, suffix: "", label: "Years Operating" },
+  { type: "number", value: 19, suffix: "+", label: "Trusted Partners" },
+  { type: "number", value: 99.4, suffix: "%", label: "On-time Delivery" },
+] as const;
 
 function Stats() {
   return (
     <section className="px-6 md:px-12 py-24 md:py-32 border-y border-border">
       <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-6">
         {STATS.map((s, i) => (
-          <Reveal key={s.label} delay={i}>
+          <Reveal key={i} delay={i}>
             <div className="group cursor-default">
-              <div className="text-5xl md:text-7xl font-extrabold tracking-tighter">
-                <AnimatedCounter to={s.value} suffix="" />
-                <span className="text-cyan-glow text-3xl md:text-5xl ml-1">{s.suffix}</span>
+              <div
+                className={
+                  s.type === "number"
+                    ? "text-5xl md:text-7xl font-extrabold tracking-tighter"
+                    : "text-3xl md:text-5xl font-extrabold tracking-tighter"
+                }
+              >
+                {s.type === "number" ? (
+                  <>
+                    <AnimatedCounter to={s.value} suffix="" />
+                    <span className="text-cyan-glow text-3xl md:text-5xl ml-1">{s.suffix}</span>
+                  </>
+                ) : (
+                  s.text
+                )}
               </div>
-              <div className="mt-3 text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground group-hover:text-foreground transition-colors">
-                {s.label}
-              </div>
+              {s.label && (
+                <div className="mt-3 text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground group-hover:text-foreground transition-colors">
+                  {s.label}
+                </div>
+              )}
             </div>
           </Reveal>
         ))}
@@ -234,7 +248,7 @@ function FeatureGrid() {
         </Reveal>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-12 gap-6 md:h-[640px]">
-          <Reveal className="md:col-span-8 relative overflow-hidden group rounded-3xl bg-card border border-border">
+          <Reveal className="md:col-span-8 relative overflow-hidden group rounded-3xl bg-card border border-border aspect-[4/5] sm:aspect-[16/10] md:aspect-auto">
             <img
               src={heroShip}
               alt="Container ship at sea"
@@ -276,7 +290,7 @@ function FeatureGrid() {
           <div className="md:col-span-4 flex flex-col gap-6">
             <Reveal
               delay={1}
-              className="flex-1 relative rounded-3xl overflow-hidden group bg-card border border-border"
+              className="flex-1 relative rounded-3xl overflow-hidden group bg-card border border-border aspect-[16/10] md:aspect-auto"
             >
               <img
                 src={solar}
@@ -487,7 +501,7 @@ const STEPS = [
   {
     n: "01",
     title: "Source",
-    desc: "We partner with India&apos;s most trusted growers and manufacturers.",
+    desc: "We partner with India's most trusted growers and manufacturers.",
   },
   { n: "02", title: "Verify", desc: "Multi-stage quality control, lab testing and documentation." },
   {
@@ -525,10 +539,7 @@ function Process() {
               <h3 className="text-2xl font-extrabold mb-3 group-hover:text-cyan-glow transition-colors">
                 {s.title}
               </h3>
-              <p
-                className="text-sm text-muted-foreground"
-                dangerouslySetInnerHTML={{ __html: s.desc }}
-              />
+              <p className="text-sm text-muted-foreground">{s.desc}</p>
             </m.div>
           ))}
         </RevealStagger>

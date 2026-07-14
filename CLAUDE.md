@@ -5,17 +5,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-bun run dev        # start dev server
-bun run build      # production build
-bun run lint       # ESLint
-bun run format     # Prettier
+npm run dev        # start dev server
+npm run build      # production build
+npm run lint       # ESLint
+npm run format     # Prettier
 ```
 
 There are no tests in this project.
 
 ## Architecture
 
-**Stack:** React 19 + TanStack Start (SSR) + TanStack Router (file-based) + Tailwind CSS v4 + Framer Motion + shadcn/ui (New York style)
+**Stack:** React 19 + TanStack Start (SSR) + TanStack Router (file-based) + Tailwind CSS v4 + Framer Motion
 
 ### Routing
 
@@ -27,9 +27,9 @@ Custom design tokens are defined in `src/styles.css` via Tailwind v4's `@theme i
 
 - `bg-obsidian` / `bg-obsidian-soft` — near-black backgrounds (`#050507`, `#0b0b10`)
 - `text-cyan-glow` / `text-cyan-deep` — primary accent colors (`#22d3ee`, `#0891b2`)
-- Font: **Plus Jakarta Sans** (weights 300/400/600/800)
+- Font: **Plus Jakarta Sans** (weights 300/400/500/600/800)
 
-shadcn/ui components live in `src/components/ui/`. Add new shadcn components with `bunx shadcn@latest add <name>`.
+No shadcn/ui components are currently installed (`src/components/ui/` was removed as unused — the site is hand-built with plain Tailwind classes). `components.json` is still configured, so add one on demand with `npx shadcn@latest add <name>` if a route needs it.
 
 ### Custom Components
 
@@ -43,12 +43,8 @@ shadcn/ui components live in `src/components/ui/`. Add new shadcn components wit
 
 ### SSR / Server
 
-`src/server.ts` wraps TanStack Start's server entry to handle catastrophic SSR errors that h3 would otherwise swallow as opaque JSON 500s. `vite.config.ts` uses `@lovable.dev/vite-tanstack-config` — **do not add** `tanstackStart`, `viteReact`, `tailwindcss`, or `tsConfigPaths` plugins manually; they are already bundled.
+`src/server.ts` wraps TanStack Start's server entry to handle catastrophic SSR errors that h3 would otherwise swallow as opaque JSON 500s. `vite.config.ts` composes `tanstackStart`, `viteReact`, `tailwindcss`, and `tsConfigPaths` directly, plus `nitro` at build time (defaults to the `cloudflare-module` preset, overridden automatically by platform auto-detection on other hosts like Vercel).
 
 ### Path Aliases
 
 `@/` maps to `src/` (configured via `vite-tsconfig-paths`).
-
-## Lovable Integration
-
-This project is connected to [Lovable](https://lovable.dev). Avoid rewriting published git history (no force-push, rebase, amend, or squash on already-pushed commits) — it corrupts Lovable's project history on their side.

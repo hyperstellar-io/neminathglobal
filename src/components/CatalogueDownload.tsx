@@ -1,12 +1,24 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { createPortal } from "react-dom";
+import { createServerFn, useServerFn } from "@tanstack/react-start";
+import { z } from "zod";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, X } from "lucide-react";
+import { sendCatalogueLeadNotification } from "../lib/server/mailer";
 
-// TODO: replace with real Formspree form ID once created
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/PLACEHOLDER";
 const CATALOGUE_PATH = "/downloads/Neminath_Global_Product_Catalogue.pdf";
+
+const catalogueLeadSchema = z.object({
+  email: z.string().trim().email().max(320),
+});
+
+const submitCatalogueLead = createServerFn({ method: "POST" })
+  .validator((data: unknown) => catalogueLeadSchema.parse(data))
+  .handler(async ({ data }) => {
+    await sendCatalogueLeadNotification(data.email);
+    return { ok: true };
+  });
 
 export function CatalogueDownload({
   className,
@@ -18,17 +30,13 @@ export function CatalogueDownload({
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
   const [email, setEmail] = useState("");
+  const submit = useServerFn(submitCatalogueLead);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setStatus("submitting");
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ email, source: "product-catalogue-download" }),
-      });
-      if (!res.ok) throw new Error("submit failed");
+      await submit({ data: { email } });
       setStatus("done");
       const a = document.createElement("a");
       a.href = CATALOGUE_PATH;

@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createServerFn, useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
+import { z } from "zod";
 import { motion as m } from "framer-motion";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { Mail, Phone, MapPin, Send, Plus } from "lucide-react";
+import { sendContactNotification } from "../lib/server/mailer";
 import {
   SITE_URL,
   buildContactPageSchema,
@@ -11,6 +14,22 @@ import {
   buildBreadcrumbSchema,
   schemaScript,
 } from "../lib/seo";
+
+const contactFormSchema = z.object({
+  name: z.string().trim().min(1).max(200),
+  company: z.string().trim().min(1).max(200),
+  email: z.string().trim().email().max(320),
+  country: z.string().trim().max(100).optional(),
+  phone: z.string().trim().max(30).optional(),
+  message: z.string().trim().min(1).max(5000),
+});
+
+const submitContactForm = createServerFn({ method: "POST" })
+  .validator((data: unknown) => contactFormSchema.parse(data))
+  .handler(async ({ data }) => {
+    await sendContactNotification(data);
+    return { ok: true };
+  });
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -127,8 +146,10 @@ function Contact() {
               <InfoCard
                 icon={Phone}
                 title="Phone"
-                lines={["🇩🇪 +49 152 0826 8849", "🇮🇳 +91 90752 40933"]}
-                href="tel:+919075240933"
+                lines={[
+                  { text: "🇩🇪 +49 152 0826 8849", href: "tel:+4915208268849" },
+                  { text: "🇮🇳 +91 90752 40933", href: "tel:+919075240933" },
+                ]}
               />
             </Reveal>
             <Reveal delay={0.2}>
@@ -136,7 +157,10 @@ function Contact() {
                 icon={MapPin}
                 title="Headquarters"
                 lines={[
-                  "FLAT NO. B-3, SHREENATH REGENCY, M.B.S NAGAR, KOTA JUNCTION, Kota, Rajasthan, 324002",
+                  {
+                    text: "FLAT NO. B-3, SHREENATH REGENCY, M.B.S NAGAR, KOTA JUNCTION, Kota, Rajasthan, 324002",
+                    href: "https://www.google.com/maps/search/?api=1&query=FLAT+NO.+B-3%2C+SHREENATH+REGENCY%2C+M.B.S+NAGAR%2C+KOTA+JUNCTION%2C+Kota%2C+Rajasthan%2C+324002",
+                  },
                 ]}
               />
             </Reveal>
@@ -186,7 +210,7 @@ function InfoCard({
 }: {
   icon: typeof Mail;
   title: string;
-  lines: string[];
+  lines: (string | { text: string; href: string })[];
   href?: string;
 }) {
   const inner = (
@@ -198,14 +222,29 @@ function InfoCard({
         <div>
           <div className="text-[9px] uppercase tracking-widest text-muted-foreground">{title}</div>
           <div className="mt-1 flex flex-wrap gap-x-5 gap-y-0.5">
-            {lines.map((l) => (
-              <span
-                key={l}
-                className="text-sm font-semibold group-hover:text-cyan-glow transition-colors"
-              >
-                {l}
-              </span>
-            ))}
+            {lines.map((l) => {
+              const text = typeof l === "string" ? l : l.text;
+              const lineHref = typeof l === "string" ? undefined : l.href;
+              const isExternal = lineHref?.startsWith("http");
+              return lineHref ? (
+                <a
+                  key={text}
+                  href={lineHref}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  className="text-sm font-semibold hover:text-cyan-glow transition-colors"
+                >
+                  {text}
+                </a>
+              ) : (
+                <span
+                  key={text}
+                  className="text-sm font-semibold group-hover:text-cyan-glow transition-colors"
+                >
+                  {text}
+                </span>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -215,13 +254,33 @@ function InfoCard({
 }
 
 function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "error">("idle");
+  const submit = useServerFn(submitContactForm);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("submitting");
+    const form = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    try {
+      await submit({
+        data: {
+          name: form.name ?? "",
+          company: form.company ?? "",
+          email: form.email ?? "",
+          country: form.country,
+          phone: form.phone,
+          message: form.message ?? "",
+        },
+      });
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
+  }
+
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-      }}
+      onSubmit={handleSubmit}
       className="rounded-3xl border border-border bg-card/80 dark:bg-zinc-900/40 p-8 md:p-10 space-y-6"
     >
       <div className="grid md:grid-cols-2 gap-6">
@@ -243,16 +302,22 @@ function ContactForm() {
 
       <button
         type="submit"
-        className="inline-flex items-center gap-3 bg-foreground text-background px-7 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-cyan-glow transition-colors active:scale-95"
+        disabled={status === "submitting"}
+        className="inline-flex items-center gap-3 bg-foreground text-background px-7 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-cyan-glow transition-colors active:scale-95 disabled:opacity-60"
       >
-        {sent ? (
-          "Thank you — we&apos;ll be in touch"
+        {status === "sent" ? (
+          "Thank you — we'll be in touch"
+        ) : status === "submitting" ? (
+          "Sending…"
         ) : (
           <>
             Submit <Send size={14} />
           </>
         )}
       </button>
+      {status === "error" && (
+        <p className="text-xs text-red-500">Something went wrong. Please try again.</p>
+      )}
     </form>
   );
 }

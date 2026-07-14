@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import worldMapUrl from "../assets/world-map.png";
+import worldMapUrl from "../assets/world-map.webp";
 
 // Equirectangular projection, image fills SVG 1000×500 exactly (preserveAspectRatio="none")
 // x = (lon + 180) / 360 * 1000

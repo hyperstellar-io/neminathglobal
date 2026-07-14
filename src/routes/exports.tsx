@@ -16,10 +16,10 @@ import {
   Building2,
 } from "lucide-react";
 import { useState } from "react";
-import spices from "../assets/spices.jpg";
-import grains from "../assets/grains.jpg";
-import mangoes from "../assets/mangoes.jpg";
-import warehouse from "../assets/warehouse.jpg";
+import spices from "../assets/spices.webp";
+import grains from "../assets/grains.webp";
+import mangoes from "../assets/mangoes.webp";
+import warehouse from "../assets/warehouse.webp";
 import {
   SITE_URL,
   buildServiceSchema,

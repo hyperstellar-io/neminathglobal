@@ -20,8 +20,8 @@ import {
   FileCheck,
   CheckCircle2,
 } from "lucide-react";
-import warehouse from "../assets/warehouse.jpg";
-import spices from "../assets/spices.jpg";
+import warehouse from "../assets/warehouse.webp";
+import spices from "../assets/spices.webp";
 import { SITE_URL, buildBreadcrumbSchema, schemaScript } from "../lib/seo";
 
 export const Route = createFileRoute("/about")({
@@ -195,39 +195,41 @@ function About() {
 
       {/* Who we are */}
       <section className="px-6 md:px-12 py-24 md:py-32">
-        <div className="max-w-[1400px] mx-auto">
-          <Reveal>
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-glow">
-              Who we are
-            </span>
-            <h2 className="mt-4 text-4xl md:text-6xl font-extrabold tracking-tighter leading-[0.95] max-w-3xl">
-              Exporting quality
-              <br />
-              <span className="text-muted-foreground">from India to the world.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={1}>
-            <div className="mt-8 max-w-3xl space-y-5 text-muted-foreground font-medium text-lg leading-relaxed">
-              <p>
-                Neminath Global is a brand of Nemminath Enterprisee, an India-based exporter of
-                premium agricultural products, food items and hygiene goods, supplying importers,
-                distributors and retailers across the globe.
-              </p>
-              <p>
-                We source from trusted growing regions across India, selecting each product for
-                quality and consistency before it&apos;s processed and packed at our facilities in
-                Rajasthan — combining traditional expertise with modern export standards. Every
-                shipment is backed by flexible MOQs, competitive FOB/CIF pricing and full export
-                documentation, so our partners can order with confidence.
-              </p>
-              <p>
-                Our Germany office, based in Kaiserslautern, now brings us closer to our European
-                buyers — enabling faster communication, easier logistics coordination and a direct
-                local point of contact for the EU market.
-              </p>
-            </div>
-          </Reveal>
-          <RevealStagger className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="max-w-[1400px] mx-auto grid md:grid-cols-12 gap-12 items-start">
+          <div className="md:col-span-7">
+            <Reveal>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-glow">
+                Who we are
+              </span>
+              <h2 className="mt-4 text-4xl md:text-6xl font-extrabold tracking-tighter leading-[0.95]">
+                Exporting quality
+                <br />
+                <span className="text-muted-foreground">from India to the world.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={1}>
+              <div className="mt-8 space-y-5 text-muted-foreground font-medium text-lg leading-relaxed">
+                <p>
+                  Neminath Global is a brand of Nemminath Enterprisee, an India-based exporter of
+                  premium agricultural products, food items and hygiene goods, supplying importers,
+                  distributors and retailers across the globe.
+                </p>
+                <p>
+                  We source from trusted growing regions across India, selecting each product for
+                  quality and consistency before it&apos;s processed and packed at our facilities in
+                  Rajasthan — combining traditional expertise with modern export standards. Every
+                  shipment is backed by flexible MOQs, competitive FOB/CIF pricing and full export
+                  documentation, so our partners can order with confidence.
+                </p>
+                <p>
+                  Our Germany office, based in Kaiserslautern, now brings us closer to our European
+                  buyers — enabling faster communication, easier logistics coordination and a direct
+                  local point of contact for the EU market.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+          <RevealStagger className="md:col-span-5 grid grid-cols-2 gap-4 md:gap-6">
             {WHO_STATS.map((s) => (
               <m.div
                 key={s.label}

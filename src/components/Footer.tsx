@@ -146,7 +146,15 @@ export function Footer() {
             </div>
           </div>
           <div className="mt-6 pl-0 md:pl-10 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
-            Designed and Developed by HyperStellar Technology
+            Designed and Developed by{" "}
+            <a
+              href="https://www.hyperstellartechnology.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-cyan-glow transition-colors"
+            >
+              HyperStellar Technology
+            </a>
           </div>
         </div>
       </div>

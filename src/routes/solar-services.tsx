@@ -22,26 +22,26 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import solar from "../assets/solar.jpg";
-import proj2 from "../assets/solar-projects/2.jpeg";
-import proj3 from "../assets/solar-projects/3.jpeg";
-import proj4 from "../assets/solar-projects/4.jpeg";
-import proj5 from "../assets/solar-projects/5.jpeg";
-import proj6 from "../assets/solar-projects/6.jpeg";
-import proj8 from "../assets/solar-projects/8.jpeg";
-import proj9 from "../assets/solar-projects/9.jpeg";
-import proj10 from "../assets/solar-projects/10.jpeg";
-import proj11 from "../assets/solar-projects/11.jpeg";
-import proj12 from "../assets/solar-projects/12.jpeg";
-import proj13 from "../assets/solar-projects/13.jpeg";
-import proj14 from "../assets/solar-projects/14.jpeg";
-import proj15 from "../assets/solar-projects/15.jpeg";
-import proj17 from "../assets/solar-projects/17.jpeg";
-import proj18 from "../assets/solar-projects/18.jpeg";
-import proj19 from "../assets/solar-projects/19.jpeg";
-import projControlPanel from "../assets/solar-projects/electrical-control-panel-setup.jpeg";
-import projGuyedMast from "../assets/solar-projects/guyed-mast-installation.jpeg";
-import projPanelInstall from "../assets/solar-projects/solar-panel-installation-work.jpeg";
+import solar from "../assets/solar.webp";
+import proj2 from "../assets/solar-projects/2.webp";
+import proj3 from "../assets/solar-projects/3.webp";
+import proj4 from "../assets/solar-projects/4.webp";
+import proj5 from "../assets/solar-projects/5.webp";
+import proj6 from "../assets/solar-projects/6.webp";
+import proj8 from "../assets/solar-projects/8.webp";
+import proj9 from "../assets/solar-projects/9.webp";
+import proj10 from "../assets/solar-projects/10.webp";
+import proj11 from "../assets/solar-projects/11.webp";
+import proj12 from "../assets/solar-projects/12.webp";
+import proj13 from "../assets/solar-projects/13.webp";
+import proj14 from "../assets/solar-projects/14.webp";
+import proj15 from "../assets/solar-projects/15.webp";
+import proj17 from "../assets/solar-projects/17.webp";
+import proj18 from "../assets/solar-projects/18.webp";
+import proj19 from "../assets/solar-projects/19.webp";
+import projControlPanel from "../assets/solar-projects/electrical-control-panel-setup.webp";
+import projGuyedMast from "../assets/solar-projects/guyed-mast-installation.webp";
+import projPanelInstall from "../assets/solar-projects/solar-panel-installation-work.webp";
 import { SITE_URL, buildServiceSchema, buildBreadcrumbSchema, schemaScript } from "../lib/seo";
 
 export const Route = createFileRoute("/solar-services")({

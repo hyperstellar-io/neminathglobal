@@ -18,7 +18,7 @@ export function ErrorPage({ code, title, subtitle, description, onRetry }: Error
 
       {/* Giant code — outline only, centred behind content */}
       <div
-        className="absolute select-none pointer-events-none font-extrabold tracking-tighter leading-none text-transparent"
+        className="absolute inset-0 grid place-items-center select-none pointer-events-none font-extrabold tracking-tighter leading-none text-transparent"
         style={{
           fontSize: "clamp(140px, 28vw, 280px)",
           WebkitTextStroke: "1px rgba(34,211,238,0.12)",

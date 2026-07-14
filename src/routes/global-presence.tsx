@@ -119,7 +119,7 @@ function GlobalPresence() {
       />
 
       <section className="px-6 md:px-12">
-        <Reveal className="relative max-w-[1400px] mx-auto aspect-[2/1] min-h-[280px] bg-obsidian-soft rounded-3xl overflow-hidden border border-border p-4">
+        <Reveal className="relative max-w-[1400px] mx-auto aspect-square sm:aspect-[2/1] min-h-[240px] sm:min-h-[280px] bg-obsidian-soft rounded-3xl overflow-hidden border border-border p-3 sm:p-4">
           <WorldMap light={theme === "light"} />
         </Reveal>
       </section>
@@ -134,9 +134,11 @@ function GlobalPresence() {
           ].map((s, i) => (
             <Reveal key={s.l} delay={i}>
               <div>
-                <div className="text-5xl md:text-7xl font-extrabold tracking-tighter">
+                <div className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tighter">
                   <AnimatedCounter to={s.v} />
-                  <span className="text-cyan-glow text-3xl md:text-5xl ml-1">{s.s}</span>
+                  <span className="text-cyan-glow text-2xl sm:text-3xl md:text-5xl ml-1">
+                    {s.s}
+                  </span>
                 </div>
                 <div className="mt-3 text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
                   {s.l}
@@ -193,11 +195,11 @@ function RegionCard({ r }: { r: (typeof REGIONS)[number] }) {
   return (
     <m.div
       variants={itemVariants}
-      className="rounded-3xl border border-border bg-card/80 dark:bg-zinc-900/40 p-8"
+      className="rounded-3xl border border-border bg-card/80 dark:bg-zinc-900/40 p-5 sm:p-8 overflow-hidden"
     >
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-2xl font-extrabold">{r.region}</h3>
-        <span className="text-[10px] font-mono font-bold text-cyan-glow tracking-widest">
+      <div className="flex items-center justify-between gap-3 mb-6">
+        <h3 className="min-w-0 text-xl sm:text-2xl font-extrabold">{r.region}</h3>
+        <span className="shrink-0 whitespace-nowrap text-[10px] font-mono font-bold text-cyan-glow tracking-widest">
           {r.countries.length} markets
         </span>
       </div>

@@ -110,14 +110,14 @@ export function PageLoader() {
         >
           <div className="absolute inset-0 grid-pattern opacity-40 pointer-events-none [mask-image:radial-gradient(circle_at_center,black,transparent_75%)]" />
 
-          <div className="relative grid grid-cols-3 w-full max-w-3xl px-6">
+          <div className="relative grid grid-cols-3 w-full max-w-3xl px-4 sm:px-6">
             {PILLARS.map((p, i) => (
-              <div key={p.label} className="flex flex-col items-center gap-4">
+              <div key={p.label} className="flex flex-col items-center gap-2 sm:gap-4">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.6 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, delay: 0.15 + i * 0.18, ease: [0.16, 1, 0.3, 1] }}
-                  className={`${p.color} drop-shadow-[0_0_10px_currentColor]`}
+                  className={`h-11 flex items-center justify-center ${p.color} drop-shadow-[0_0_10px_currentColor]`}
                 >
                   <p.Icon />
                 </motion.div>
@@ -128,7 +128,9 @@ export function PageLoader() {
                   className="flex flex-col items-center gap-2"
                 >
                   <span className={`size-1 rounded-full ${p.color} bg-current`} />
-                  <span className={`text-[10px] tracking-[0.3em] font-semibold ${p.color}`}>
+                  <span
+                    className={`text-[8px] sm:text-[10px] tracking-[0.12em] sm:tracking-[0.3em] font-semibold whitespace-nowrap ${p.color}`}
+                  >
                     {p.label}
                   </span>
                 </motion.div>
